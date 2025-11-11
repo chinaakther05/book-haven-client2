@@ -1,155 +1,74 @@
-// src/components/Navbar/Navbar.jsx
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import book from "../../assets/Book.jpg";
 
-const Navbar = () => {
+const Navbar = ({ isDark, setIsDark }) => {
   const { user, signOutUser } = useContext(AuthContext);
-  const [theme, setTheme] = useState("light");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    if (newTheme === "dark") document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
-  };
+  const toggleTheme = () => setIsDark(!isDark);
+  const handleSignOut = () => signOutUser().catch(err => console.log(err));
 
-  const handleSignOut = () => signOutUser().catch((err) => console.log(err));
-
-  const links = (
-    <>
-      <li>
-        <NavLink
-          to="/"
-          end
-          className={({ isActive }) =>
-            isActive ? "text-primary font-semibold" : "hover:text-primary"
-          }
-        >
-          Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/allBooks"
-          className={({ isActive }) =>
-            isActive ? "text-primary font-semibold" : "hover:text-primary"
-          }
-        >
-          All Books
-        </NavLink>
-      </li>
-      {user && (
-        <>
-          <li>
-            <NavLink
-              to="/addBooks"
-              className={({ isActive }) =>
-                isActive ? "text-primary font-semibold" : "hover:text-primary"
-              }
-            >
-              Add Book
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/myBooks"
-              className={({ isActive }) =>
-                isActive ? "text-primary font-semibold" : "hover:text-primary"
-              }
-            >
-              My Books
-            </NavLink>
-          </li>
-        </>
-      )}
-    </>
-  );
+  const linkClass = "px-3 py-1 rounded hover:bg-blue-500 hover:text-white transition-colors";
 
   return (
-    <div className="navbar bg-base-100 shadow-lg px-4">
-      {/* Navbar Start */}
-      <div className="navbar-start">
-        {/* Mobile Dropdown */}
-        <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 gap-2"
-          >
-            {links}
-            <li>
-              <button onClick={toggleTheme} className="btn btn-sm btn-outline w-full">
-                {theme === "light" ? "🌞 Light" : "🌙 Dark"}
-              </button>
-            </li>
-            <li>
-              {user ? (
-                <button onClick={handleSignOut} className="btn btn-sm btn-error w-full">
-                  Log Out
-                </button>
-              ) : (
-                <Link to="/register" className="btn btn-sm btn-primary w-full text-center">
-                  Login
-                </Link>
-              )}
-            </li>
-          </ul>
-        </div>
-
-        {/* Logo */}
-        <div className="flex items-center gap-2">
-          <img className="w-10 h-10" src={book} alt="Book" />
-          <Link className="btn btn-ghost normal-case text-xl">The Book Haven</Link>
-        </div>
+    <nav className={`flex justify-between items-center flex-wrap p-4 shadow-lg transition-colors duration-300 ${isDark ? 'bg-gray-800 text-gray-100' : 'bg-gray-100 text-gray-900'}`}>
+      {/* Logo */}
+      <div className="flex items-center gap-2">
+        <img src={book} className="w-10 h-10" alt="Book" />
+        <Link to="/" className="font-bold text-xl">The Book Haven</Link>
       </div>
 
-      {/* Navbar Center (Desktop) */}
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 gap-2">{links}</ul>
-      </div>
+      {/* Desktop Links */}
+      <ul className="hidden lg:flex gap-2 items-center">
+        <li><NavLink to="/" className={({isActive}) => linkClass + (isActive ? " font-bold underline" : "")}>Home</NavLink></li>
+        <li><NavLink to="/allBooks" className={({isActive}) => linkClass + (isActive ? " font-bold underline" : "")}>All Books</NavLink></li>
+        {user && <>
+          <li><NavLink to="/addBooks" className={({isActive}) => linkClass + (isActive ? " font-bold underline" : "")}>Add Book</NavLink></li>
+          <li><NavLink to="/myBooks" className={({isActive}) => linkClass + (isActive ? " font-bold underline" : "")}>My Books</NavLink></li>
+        </>}
+      </ul>
 
-      {/* Navbar End (Desktop) */}
-      <div className="navbar-end flex items-center gap-2">
+      {/* Right Buttons */}
+      <div className="flex items-center gap-2">
         <button onClick={toggleTheme} className="btn btn-sm btn-outline">
-          {theme === "light" ? "🌞" : "🌙"}
+          {isDark ? "🌙 Dark" : "🌞 Light"}
         </button>
-        {user ? (
-          <>
-            <div className="tooltip tooltip-bottom" data-tip={user.displayName || "User"}>
-              <img
-                src={user.photoURL || "https://i.ibb.co/3d3Qq5M/default-user.png"}
-                className="w-10 h-10 rounded-full"
-                alt="User"
-              />
-            </div>
-            <button onClick={handleSignOut} className="btn btn-sm btn-error">
-              Log Out
-            </button>
-          </>
-        ) : (
-          <Link to="/register" className="btn btn-sm btn-primary">
-            Login
-          </Link>
+
+        {user ? <>
+          <div className="tooltip tooltip-bottom" data-tip={user.displayName || "User"}>
+            <img src={user.photoURL || "https://i.ibb.co/3d3Qq5M/default-user.png"} className="w-10 h-10 rounded-full" alt="User" />
+          </div>
+          <button onClick={handleSignOut} className="btn btn-sm btn-error">Log Out</button>
+        </> : (
+          <Link to="/register" className="btn btn-sm btn-primary">Login</Link>
         )}
+
+        {/* Mobile Dropdown */}
+        <button onClick={() => setDropdownOpen(!dropdownOpen)} className="lg:hidden btn btn-ghost">☰</button>
       </div>
-    </div>
+
+      {/* Mobile Menu */}
+      {dropdownOpen && (
+        <ul className={`${isDark ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-900"} flex flex-col gap-1 p-2 mt-2 rounded shadow-lg lg:hidden transition-colors duration-300`}>
+          <li><NavLink to="/" onClick={() => setDropdownOpen(false)} className={linkClass}>Home</NavLink></li>
+          <li><NavLink to="/allBooks" onClick={() => setDropdownOpen(false)} className={linkClass}>All Books</NavLink></li>
+          {user && <>
+            <li><NavLink to="/addBooks" onClick={() => setDropdownOpen(false)} className={linkClass}>Add Book</NavLink></li>
+            <li><NavLink to="/myBooks" onClick={() => setDropdownOpen(false)} className={linkClass}>My Books</NavLink></li>
+          </>}
+          <li>
+            <button onClick={toggleTheme} className="btn btn-sm btn-outline w-full">{isDark ? "🌙 Dark" : "🌞 Light"}</button>
+          </li>
+          <li>
+            {user ? <button onClick={handleSignOut} className="btn btn-sm btn-error w-full">Log Out</button> : (
+              <Link to="/register" className="btn btn-sm btn-primary w-full text-center">Login</Link>
+            )}
+          </li>
+        </ul>
+      )}
+    </nav>
   );
 };
 

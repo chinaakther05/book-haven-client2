@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom"; 
 
 const AllBooks = () => {
   const [books, setBooks] = useState([]);
@@ -7,7 +8,7 @@ const AllBooks = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/books") // তোমার server URL
+      .get("http://localhost:3000/books") 
       .then((res) => {
         setBooks(res.data);
         setLoading(false);
@@ -29,16 +30,15 @@ const AllBooks = () => {
 
   return (
     <div className="px-4 py-8">
-      <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center text-primary">
+      <h1 className="text-3xl md:text-4xl text-red font-bold mb-8 text-center ">
          All Books
       </h1>
 
-      {/* ✅ Responsive Grid: mobile=1, tablet=2, desktop=3 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {books.map((book) => (
           <div
             key={book._id}
-            className="border rounded-2xl shadow-md hover:shadow-2xl transition duration-300 p-4 flex flex-col bg-white dark:bg-gray-800 dark:text-white"
+            className="border text-black rounded-2xl shadow-md hover:shadow-2xl transition duration-300 p-4 flex flex-col bg-white dark:bg-gray-800 dark:text-white"
           >
             <div className="overflow-hidden rounded-lg mb-4">
               <img
@@ -54,9 +54,17 @@ const AllBooks = () => {
             <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
                Genre: {book.genre}
             </p>
-            <p className="text-sm font-semibold mt-auto">
+            <p className="text-sm font-semibold mb-2">
               ⭐ Rating: {book.rating}
             </p>
+
+            {/* ✅ View Details Button */}
+            <Link
+              to={`/book-details/${book._id}`}
+              className="btn btn-sm btn-primary mt-auto"
+            >
+              View Details
+            </Link>
           </div>
         ))}
       </div>

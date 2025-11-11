@@ -12,6 +12,8 @@ import Register from './components/Register/Register.jsx';
 import AddBook from './components/AddBook/AddBook.jsx';
 import MyBooks from './components/myBook/MyBooks.jsx';
 import Error from './components/error/Error.jsx';
+import BookDetails from './components/bookDetails/BookDetails.jsx';
+//import Genres from './components/Genres/Genres.jsx';
 
 const router = createBrowserRouter([
   {
@@ -19,11 +21,17 @@ const router = createBrowserRouter([
     Component: RootLayout, // only reference, not JSX
     children: [
       { index: true, Component: Home },
+      
       { path: 'allBooks', Component: AllBooks },
       { path: 'register', Component: Register },
       { path: 'addBooks', Component: AddBook },
       { path: 'myBooks', Component: MyBooks },
+      {
+        path: '/book-details/:id',
+        Component: BookDetails
+      },
       { path: '*', Component: Error },
+      
     ],
   },
 ]);
