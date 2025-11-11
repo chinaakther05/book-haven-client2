@@ -37,6 +37,7 @@ const AddBook = () => {
       setRating('');
       setSummary('');
       setCoverImage('');
+      
     } catch (err) {
       console.log(err);
       toast.error("Failed to add book.");
@@ -60,6 +61,7 @@ const AddBook = () => {
             required
             className="input text-black input-bordered"
           />
+         
           <input
             type="text"
             placeholder="Author"
