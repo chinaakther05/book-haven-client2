@@ -38,13 +38,13 @@ const AllBooks = () => {
         {books.map((book) => (
           <div
             key={book._id}
-            className="border text-black rounded-2xl shadow-md hover:shadow-2xl transition duration-300 p-4 flex flex-col bg-white dark:bg-gray-800 dark:text-white"
+            className=" text-black rounded-2xl shadow-md hover:shadow-2xl transition duration-300 p-4 flex flex-col bg-white dark:bg-gray-800 dark:text-white"
           >
             <div className="overflow-hidden rounded-lg mb-4">
               <img
                 src={book.coverImage}
                 alt={book.title}
-                className="w-full h-56 object-cover hover:scale-105 transition-transform duration-300"
+                className="w-full h-[300px] object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
             <h2 className="text-xl font-semibold mb-1">{book.title}</h2>
@@ -58,7 +58,7 @@ const AllBooks = () => {
               ⭐ Rating: {book.rating}
             </p>
 
-            {/* ✅ View Details Button */}
+            
             <Link
               to={`/book-details/${book._id}`}
               className="btn btn-sm btn-primary mt-auto"
