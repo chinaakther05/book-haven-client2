@@ -14,13 +14,13 @@ const Navbar = ({ isDark, setIsDark }) => {
 
   return (
     <nav className={`flex justify-between items-center flex-wrap p-4 shadow-lg transition-colors duration-300 ${isDark ? 'bg-gray-800 text-gray-100' : 'bg-gray-100 text-gray-900'}`}>
-      {/* Logo */}
+     
       <div className="flex items-center gap-2">
         <img src={book} className="w-10 h-10" alt="Book" />
         <Link to="/" className="font-bold text-xl">The Book Haven</Link>
       </div>
 
-      {/* Desktop Links */}
+      
       <ul className="hidden lg:flex gap-2 items-center">
         <li><NavLink to="/" className={({isActive}) => linkClass + (isActive ? " font-bold underline" : "")}>Home</NavLink></li>
         <li><NavLink to="/allBooks" className={({isActive}) => linkClass + (isActive ? " font-bold underline" : "")}>All Books</NavLink></li>
@@ -30,7 +30,7 @@ const Navbar = ({ isDark, setIsDark }) => {
         </>}
       </ul>
 
-      {/* Right Buttons */}
+      
       <div className="flex items-center gap-2">
         <button onClick={toggleTheme} className="btn btn-sm btn-outline">
           {isDark ? "🌙 Dark" : "🌞 Light"}
@@ -45,11 +45,11 @@ const Navbar = ({ isDark, setIsDark }) => {
           <Link to="/register" className="btn btn-sm btn-primary">Login</Link>
         )}
 
-        {/* Mobile Dropdown */}
+       
         <button onClick={() => setDropdownOpen(!dropdownOpen)} className="lg:hidden btn btn-ghost">☰</button>
       </div>
 
-      {/* Mobile Menu */}
+    
       {dropdownOpen && (
         <ul className={`${isDark ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-900"} flex flex-col gap-1 p-2 mt-2 rounded shadow-lg lg:hidden transition-colors duration-300`}>
           <li><NavLink to="/" onClick={() => setDropdownOpen(false)} className={linkClass}>Home</NavLink></li>

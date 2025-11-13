@@ -15,10 +15,10 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 const Home = () => {
-  // ✅ state for books
+  
   const [books, setBooks] = useState([]);
 
-  // ✅ fetch books from server
+  
   useEffect(() => {
     axios
       .get("http://localhost:3000/books")
@@ -28,7 +28,7 @@ const Home = () => {
 
   return (
     <div className="mt-5">
-      {/* 🏞 Banner Section */}
+      
       <section className="relative h-[70vh]">
         <Swiper
           modules={[Autoplay, Pagination, Navigation]}
@@ -67,7 +67,7 @@ const Home = () => {
         </Swiper>
       </section>
 
-       {/* 🕮 Latest Books Section */}
+       
       <section className="my-10 px-6 py-10 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-center mb-6 text-primary">
           Latest Added Books
@@ -111,7 +111,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 📚 Book of the Week */}
+      
       <section className="my-10 px-6 bg-gray-200 dark:bg-gray-800 py-10 rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-center mb-6 text-primary">
           Book of the Week
@@ -141,7 +141,7 @@ const Home = () => {
 
      
 
-      {/* 🏛 About Section */}
+    
       <section className="my-10 px-6 py-10 bg-gray-200 dark:bg-gray-900 rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-center mb-6 text-primary">
           About The Book Haven
