@@ -13,6 +13,7 @@ import AddBook from './components/AddBook/AddBook.jsx';
 import MyBooks from './components/myBook/MyBooks.jsx';
 import Error from './components/error/Error.jsx';
 import BookDetails from './components/bookDetails/BookDetails.jsx';
+import BookDetailsHome from './components/bookDetailsHome/BookDetailsHome.jsx';
 //import Genres from './components/Genres/Genres.jsx';
 
 const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: '/book-details/:id',
         Component: BookDetails
+      },
+      {
+path: "/book/:id",
+Component: BookDetailsHome
       },
       { path: '*', Component: Error },
       

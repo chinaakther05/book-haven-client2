@@ -24,7 +24,7 @@ const Register = () => {
 
     const { name, email, photoURL, password } = formData;
 
-    // Password validation
+    
     const uppercase = /[A-Z]/.test(password);
     const lowercase = /[a-z]/.test(password);
     const minLength = password.length >= 6;
@@ -33,14 +33,14 @@ const Register = () => {
       toast.error(
         'Password must be at least 6 characters long and include uppercase and lowercase letters.'
       );
-      return; // Stop execution if validation fails
+      return; 
     }
 
-    // Register user
+    
     createUser(email, password)
       .then((res) => {
         toast.success(`Registration successful! Welcome, ${name}`);
-        // Optionally update user profile here with name & photoURL
+        
       })
       .catch((err) => {
         toast.error(err.message);
