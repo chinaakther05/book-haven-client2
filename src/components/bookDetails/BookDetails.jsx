@@ -12,21 +12,21 @@ const BookDetails = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
-  
+
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/books/${id}`)
+      .get(`https://book-haven-server-seven.vercel.app/books/${id}`)
       .then((res) => setBook(res.data))
       .catch(() => toast.error("Failed to load book details!"));
 
-   
+
     axios
-      .get(`http://localhost:3000/comments/${id}`) 
+      .get(`https://book-haven-server-seven.vercel.app/comments/${id}`)
       .then((res) => setComments(res.data))
       .catch(() => toast.error("Failed to load comments!"));
   }, [id]);
 
-  
+
   const handleAddComment = async (e) => {
     e.preventDefault();
     if (!newComment.trim()) return toast.error("Write something first!");
@@ -36,12 +36,12 @@ const BookDetails = () => {
       text: newComment,
       userName: user?.displayName || "Anonymous",
       userPhoto: user?.photoURL || "https://i.ibb.co/2Y7t2Cv/default-user.png",
-      date: new Date().toISOString(), 
+      date: new Date().toISOString(),
     };
 
     try {
-      const res = await axios.post("http://localhost:3000/comments", commentData);
-      setComments([...comments, { ...commentData, _id: res.data.insertedId }]); 
+      const res = await axios.post("https://book-haven-server-seven.vercel.app/comments", commentData);
+      setComments([...comments, { ...commentData, _id: res.data.insertedId }]);
       setNewComment("");
       toast.success("Comment added!");
     } catch (err) {
@@ -60,7 +60,7 @@ const BookDetails = () => {
     <div className="p-6 max-w-3xl mx-auto">
       <Toaster position="top-right" />
 
-     
+
       <div className="flex flex-col md:flex-row gap-6">
         <img
           src={book.coverImage}
@@ -82,11 +82,11 @@ const BookDetails = () => {
         </div>
       </div>
 
-     
+
       <div className="mt-10">
         <h2 className="text-2xl font-bold mb-4">Comments 💬</h2>
 
-       
+
         {comments.length === 0 ? (
           <p className="text-gray-500">No comments yet. Be the first!</p>
         ) : (
@@ -117,7 +117,7 @@ const BookDetails = () => {
           })
         )}
 
-       
+
         {user ? (
           <form onSubmit={handleAddComment} className="mt-5 flex gap-3">
             <input

@@ -3,14 +3,14 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 
 const BookDetailsHome = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/books/${id}`) 
+      .get(`https://book-haven-server-seven.vercel.app/books/${id}`)
       .then((res) => {
         setBook(res.data);
         setLoading(false);
@@ -69,7 +69,7 @@ const BookDetailsHome = () => {
           </p>
 
           <div className="flex gap-4">
-            
+
             <Link
               to="/"
               className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition"

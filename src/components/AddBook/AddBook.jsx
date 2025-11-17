@@ -29,7 +29,7 @@ const AddBook = () => {
     };
 
     try {
-      await axios.post('http://localhost:3000/books', newBook);
+      await axios.post('https://book-haven-server-seven.vercel.app/books', newBook);
       toast.success("Book added successfully!");
       setTitle('');
       setAuthor('');
@@ -37,7 +37,7 @@ const AddBook = () => {
       setRating('');
       setSummary('');
       setCoverImage('');
-      
+
     } catch (err) {
       console.log(err);
       toast.error("Failed to add book.");
@@ -61,7 +61,7 @@ const AddBook = () => {
             required
             className="input text-black input-bordered"
           />
-         
+
           <input
             type="text"
             placeholder="Author"

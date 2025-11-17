@@ -71,7 +71,7 @@ const Register = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Your Name"
-              className="input text-red input-bordered w-full"
+              className="input text-black input-bordered w-full"
               required
             />
             <label className="label">Email</label>
@@ -81,7 +81,7 @@ const Register = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="Email"
-              className="input input-bordered w-full"
+              className="input text-black input-bordered w-full"
               required
             />
             <label className="label">Photo URL</label>
@@ -91,7 +91,7 @@ const Register = () => {
               value={formData.photoURL}
               onChange={handleChange}
               placeholder="Photo URL"
-              className="input input-bordered w-full"
+              className="input text-black input-bordered w-full"
             />
             <label className="label">Password</label>
             <div className="relative">
@@ -101,7 +101,7 @@ const Register = () => {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Password"
-                className="input input-bordered w-full pr-12"
+                className="input text-black input-bordered w-full pr-12"
                 required
               />
               <button

@@ -15,20 +15,20 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 const Home = () => {
-  
+
   const [books, setBooks] = useState([]);
 
-  
+
   useEffect(() => {
     axios
-      .get("http://localhost:3000/books")
+      .get("https://book-haven-server-seven.vercel.app/books")
       .then((res) => setBooks(res.data))
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <div className="mt-5">
-      
+
       <section className="relative h-[70vh]">
         <Swiper
           modules={[Autoplay, Pagination, Navigation]}
@@ -67,7 +67,7 @@ const Home = () => {
         </Swiper>
       </section>
 
-       
+
       <section className="my-10 px-6 py-10 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-center mb-6 text-primary">
           Latest Added Books
@@ -111,7 +111,7 @@ const Home = () => {
         </div>
       </section>
 
-      
+
       <section className="my-10 px-6 bg-gray-200 dark:bg-gray-800 py-10 rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-center mb-6 text-primary">
           Book of the Week
@@ -139,9 +139,9 @@ const Home = () => {
         </div>
       </section>
 
-     
 
-    
+
+
       <section className="my-10 px-6 py-10 bg-gray-200 dark:bg-gray-900 rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-center mb-6 text-primary">
           About The Book Haven

@@ -16,11 +16,11 @@ const MyBooks = () => {
     rating: "",
   });
 
-  
+
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:3000/books?email=${user.email}`)
+        .get(`https://book-haven-server-seven.vercel.app/books?email=${user.email}`)
         .then((res) => {
           setBooks(res.data);
           setLoading(false);
@@ -33,10 +33,10 @@ const MyBooks = () => {
     }
   }, [user]);
 
- 
+
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/books/${id}`);
+      await axios.delete(`https://book-haven-server-seven.vercel.app/books/${id}`);
       setBooks(books.filter((book) => book._id !== id));
       toast.success("Book deleted successfully!");
     } catch (err) {
@@ -44,7 +44,7 @@ const MyBooks = () => {
     }
   };
 
-  
+
   const handleEdit = (book) => {
     setEditingBook(book);
     setFormData({
@@ -55,7 +55,7 @@ const MyBooks = () => {
     });
   };
 
- 
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -64,7 +64,7 @@ const MyBooks = () => {
   const handleUpdate = async () => {
     try {
       await axios.patch(
-        `http://localhost:3000/books/${editingBook._id}`,
+        `https://book-haven-server-seven.vercel.app/books/${editingBook._id}`,
         formData
       );
       setBooks(
@@ -73,7 +73,7 @@ const MyBooks = () => {
         )
       );
       toast.success("Book updated successfully!");
-      setEditingBook(null); 
+      setEditingBook(null);
     } catch (err) {
       toast.error("Update failed!");
     }
@@ -90,7 +90,7 @@ const MyBooks = () => {
 
   return (
     <div className="p-4 bg-gray-100 dark:bg-gray-900 min-h-screen">
-     
+
       <Toaster position="top-right" reverseOrder={false} />
 
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100">
@@ -144,7 +144,7 @@ const MyBooks = () => {
         </div>
       )}
 
-     
+
       {editingBook && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
           <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-6 rounded-lg w-96">

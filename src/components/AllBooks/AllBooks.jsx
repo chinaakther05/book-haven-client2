@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 
 const AllBooks = () => {
   const [books, setBooks] = useState([]);
@@ -8,7 +8,7 @@ const AllBooks = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/books") 
+      .get("https://book-haven-server-seven.vercel.app/books")
       .then((res) => {
         setBooks(res.data);
         setLoading(false);
@@ -31,7 +31,7 @@ const AllBooks = () => {
   return (
     <div className="px-4 py-8">
       <h1 className="text-3xl md:text-4xl text-red font-bold mb-8 text-center ">
-         All Books
+        All Books
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -49,16 +49,16 @@ const AllBooks = () => {
             </div>
             <h2 className="text-xl font-semibold mb-1">{book.title}</h2>
             <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
-               Author: <span className="font-medium">{book.author}</span>
+              Author: <span className="font-medium">{book.author}</span>
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
-               Genre: {book.genre}
+              Genre: {book.genre}
             </p>
             <p className="text-sm font-semibold mb-2">
               ⭐ Rating: {book.rating}
             </p>
 
-            
+
             <Link
               to={`/book-details/${book._id}`}
               className="btn btn-sm btn-primary mt-auto"
