@@ -1,89 +1,64 @@
 import React, { useState, useContext } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import googlePhoto from "../../assets/icon-google.png";
-import { Link } from "react-router-dom";
 
-const Register = () => {
-  const { createUser, signInWithGoogle } = useContext(AuthContext);
+const Login = () => {
+  const { signInUser, googleSignIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
-    photoURL: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const from = location.state?.from?.pathname || "/";
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleRegister = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const { name, email, password } = formData;
-
-    // Password validation
-    const uppercase = /[A-Z]/.test(password);
-    const lowercase = /[a-z]/.test(password);
-    const minLength = password.length >= 6;
-
-    if (!uppercase || !lowercase || !minLength) {
-      toast.error(
-        "Password must be at least 6 characters long and include uppercase and lowercase letters."
-      );
-      return;
-    }
-
+    setLoading(true);
     try {
-      setLoading(true);
-      await createUser(email, password);
-      toast.success(`Registration successful! Welcome, ${name}`);
-      setFormData({ name: "", email: "", photoURL: "", password: "" });
+      await signInUser(formData.email, formData.password);
+      toast.success("Login successful!");
+      navigate(from, { replace: true });
     } catch (err) {
-      toast.error(err.message);
+      toast.error(err.message || "Login failed!");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleGoogleSignIn = async () => {
+  const handleGoogleLogin = async () => {
     try {
-      const result = await signInWithGoogle();
-      toast.success(`Welcome ${result.user.displayName}`);
+      await googleSignIn();
+      toast.success("Google login successful!");
+      navigate("/", { replace: true });
     } catch (err) {
-      toast.error(err.message);
+      toast.error("Google login failed!");
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-200 via-blue-100 to-white px-4">
       <Toaster position="top-center" />
-      <div className="bg-white mt-6 mb-4 shadow-2xl rounded-3xl p-8 max-w-md w-full">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">
-          Register Now!
-        </h1>
+      <div className="bg-white shadow-2xl rounded-3xl p-8 max-w-md w-full">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+          Welcome Back
+        </h2>
         <p className="text-center text-gray-500 mb-6">
-          Create your account to get started
+          Please login to continue
         </p>
 
-        <form onSubmit={handleRegister} className="flex flex-col gap-4">
-          {/* Name */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your Name"
-              className="input input-bordered w-full text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            />
-          </div>
-
-          {/* Email */}
+        <form onSubmit={handleLogin} className="flex flex-col gap-4">
+          {/* Email Input */}
           <div>
             <label className="block text-gray-700 font-medium mb-1">Email</label>
             <input
@@ -97,20 +72,7 @@ const Register = () => {
             />
           </div>
 
-          {/* Photo URL */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Photo URL</label>
-            <input
-              type="text"
-              name="photoURL"
-              value={formData.photoURL}
-              onChange={handleChange}
-              placeholder="Photo URL"
-              className="input input-bordered w-full text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
-
-          {/* Password */}
+          {/* Password Input */}
           <div>
             <label className="block text-gray-700 font-medium mb-1">Password</label>
             <div className="relative">
@@ -133,12 +95,12 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Submit */}
+          {/* Submit Button */}
           <button
             type="submit"
             className="btn btn-primary w-full mt-2 py-2 font-semibold"
           >
-            {loading ? "Registering..." : "Register"}
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
@@ -149,23 +111,20 @@ const Register = () => {
           <hr className="flex-grow border-gray-300" />
         </div>
 
-        {/* Google Sign-in */}
+        {/* Google Login */}
         <button
-          onClick={handleGoogleSignIn}
+          onClick={handleGoogleLogin}
           className="btn w-full border flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-100 transition rounded-lg py-2"
         >
           <img src={googlePhoto} alt="Google logo" className="w-5 h-5" />
           Continue with Google
         </button>
 
-        {/* Already have account */}
+        {/* Register Link */}
         <p className="text-center mt-4 text-gray-600 text-sm">
-          Already have an account?{" "}
-          <Link
-            to="/login"
-            className="text-indigo-600 font-medium hover:underline"
-          >
-            Login
+          Don’t have an account?{" "}
+          <Link to="/register" className="text-indigo-600 font-medium hover:underline">
+            Register
           </Link>
         </p>
       </div>
@@ -173,4 +132,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
