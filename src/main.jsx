@@ -16,6 +16,8 @@ import Error from "./components/error/Error";
 import BookDetails from "./components/bookDetails/BookDetails";
 import BookDetailsHome from "./components/bookDetailsHome/BookDetailsHome";
 import PrivateRoute from "./context/PrivateRoute";
+import DashboardLayout from "./components/Dashboard/DashboardLayout";
+import MyProfile from "./components/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +64,23 @@ const router = createBrowserRouter([
       },
     ],
   },
+  
+    // Dashboard Routes
+      {
+        path: "dashboard",
+        element: (
+          <PrivateRoute>
+            <DashboardLayout />
+          </PrivateRoute>
+        ),
+        children: [
+          { index: true, element: <p>Welcome to your Dashboard!</p> },
+           {
+            path: '/dashboard/my-profile',
+            element: <MyProfile></MyProfile>
+           }
+        ],
+  }
 ]);
 
 createRoot(document.getElementById("root")).render(

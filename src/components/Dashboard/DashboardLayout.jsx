@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 const DashboardLayout = () => {
@@ -17,15 +17,15 @@ const DashboardLayout = () => {
           sidebarOpen ? "block" : "hidden"
         } lg:block`}
       >
-        <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">
+        <Link to='/' className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">
           Dashboard
-        </h2>
+        </Link>
         <nav className="flex flex-col gap-2">
           <NavLink to="/dashboard" className={linkClass}>
             Overview
           </NavLink>
-          <NavLink to="/dashboard/my-books" className={linkClass}>
-            My Books
+          <NavLink to="/dashboard/my-profile" className={linkClass}>
+            My Profile
           </NavLink>
           <NavLink to="/dashboard/add-book" className={linkClass}>
             Add Book
