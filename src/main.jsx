@@ -18,9 +18,10 @@ import BookDetailsHome from "./components/bookDetailsHome/BookDetailsHome";
 import PrivateRoute from "./context/PrivateRoute";
 import DashboardLayout from "./components/Dashboard/DashboardLayout";
 import MyProfile from "./components/MyProfile";
-import AboutUs from "./components/about/AboutUs";
+
 import Support from "./components/support/Support";
 import ManageBooks from "./components/manageBooks/ManageBooks";
+
 
 
 
@@ -33,10 +34,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
 
       { path: "allBooks", element: <AllBooks /> },
-      {
-        path:'about',
-        element: <AboutUs></AboutUs>
-      },
+     
       {
         path:'help',
        Component:Support
@@ -96,7 +94,8 @@ const router = createBrowserRouter([
       {
         path:'manage-books',
         element: <PrivateRoute> <ManageBooks></ManageBooks> </PrivateRoute>
-      }
+      },
+      
   
         ],
   }

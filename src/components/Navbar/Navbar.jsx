@@ -30,7 +30,7 @@ const Navbar = ({ isDark, setIsDark }) => {
       </div>
 
       {/* Desktop Menu */}
-      <ul className="hidden lg:flex gap-4 items-center">
+      <ul className="hidden lg:flex gap-2 items-center">
         <li className="text-white flex items-center gap-1 group">
           <FaHome className="w-5 h-5 group-hover:text-red-500" />
           <NavLink
@@ -59,20 +59,8 @@ const Navbar = ({ isDark, setIsDark }) => {
           </NavLink>
         </li>
 
-        <li className="text-white flex items-center gap-1 group">
-          <FaInfoCircle className="w-5 h-5 group-hover:text-red-500" />
-          <NavLink
-            to="/about"
-            className={({ isActive }) =>
-              linkClass +
-              (isActive ? " font-bold text-red-500 underline" : "") +
-              " group-hover:text-red-500"
-            }
-          >
-            About Us
-          </NavLink>
-        </li>
-        <li className="text-white flex items-center gap-1 group">
+       
+        <li className="text-white flex items-center gap-1  group">
           <FaInfoCircle className="w-5 h-5 group-hover:text-red-500" />
           <NavLink
             to="help"
