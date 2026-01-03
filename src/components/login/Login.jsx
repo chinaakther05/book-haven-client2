@@ -5,7 +5,9 @@ import { Toaster, toast } from "react-hot-toast";
 import googlePhoto from "../../assets/icon-google.png";
 
 const Login = () => {
-  const { signInUser, googleSignIn } = useContext(AuthContext);
+  // 🔥 এখানে change
+  const { signInUser, signInWithGoogle } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -36,9 +38,10 @@ const Login = () => {
     }
   };
 
+  // 🔥 এখানে change
   const handleGoogleLogin = async () => {
     try {
-      await googleSignIn();
+      await signInWithGoogle();
       toast.success("Google login successful!");
       navigate("/", { replace: true });
     } catch (err) {
@@ -49,16 +52,17 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-200 via-blue-100 to-white px-4">
       <Toaster position="top-center" />
+
       <div className="bg-white shadow-2xl rounded-3xl p-8 max-w-md w-full">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Welcome Back
         </h2>
+
         <p className="text-center text-gray-500 mb-6">
           Please login to continue
         </p>
 
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
-          {/* Email Input */}
           <div>
             <label className="block text-gray-700 font-medium mb-1">Email</label>
             <input
@@ -67,14 +71,16 @@ const Login = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email"
-              className="input input-bordered w-full text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="input input-bordered w-full text-black"
               required
             />
           </div>
 
-          {/* Password Input */}
           <div>
-            <label className="block text-gray-700 font-medium mb-1">Password</label>
+            <label className="block text-gray-700 font-medium mb-1">
+              Password
+            </label>
+
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -82,7 +88,7 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Enter your password"
-                className="input input-bordered w-full pr-12 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="input input-bordered w-full pr-12 text-black"
                 required
               />
               <button
@@ -95,35 +101,31 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
-            className="btn btn-primary w-full mt-2 py-2 font-semibold"
+            className="btn btn-primary w-full mt-2"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
-        {/* Divider */}
         <div className="flex items-center my-4">
-          <hr className="flex-grow border-gray-300" />
-          <span className="mx-2 text-gray-400 text-sm">OR</span>
-          <hr className="flex-grow border-gray-300" />
+          <hr className="flex-grow" />
+          <span className="mx-2 text-sm text-gray-400">OR</span>
+          <hr className="flex-grow" />
         </div>
 
-        {/* Google Login */}
         <button
           onClick={handleGoogleLogin}
-          className="btn w-full border flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-100 transition rounded-lg py-2"
+          className="btn w-full border flex gap-2 justify-center"
         >
-          <img src={googlePhoto} alt="Google logo" className="w-5 h-5" />
+          <img src={googlePhoto} className="w-5 h-5" />
           Continue with Google
         </button>
 
-        {/* Register Link */}
-        <p className="text-center mt-4 text-gray-600 text-sm">
+        <p className="text-center mt-4 text-sm text-gray-600">
           Don’t have an account?{" "}
-          <Link to="/register" className="text-indigo-600 font-medium hover:underline">
+          <Link to="/register" className="text-indigo-600 font-medium">
             Register
           </Link>
         </p>

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import banner1 from "../../assets/bannar.jpg";
@@ -14,10 +14,12 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
+import { AuthContext } from "../../context/AuthContext";
+
 const Home = () => {
-
   const [books, setBooks] = useState([]);
-
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -26,9 +28,18 @@ const Home = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  return (
-    <div className="mt-5">
+  // ✅ Handle View Details
+  const handleViewDetails = (bookId) => {
+    if (!user) {
+      navigate("/login"); // login না থাকলে redirect
+    } else {
+      navigate(`/book/${bookId}`); // login থাকলে details page
+    }
+  };
 
+  return (
+    <div className="mt-5 bg-gray-200 dark:bg-gray-900">
+      {/* Banner Section */}
       <section className="relative h-[70vh]">
         <Swiper
           modules={[Autoplay, Pagination, Navigation]}
@@ -67,21 +78,21 @@ const Home = () => {
         </Swiper>
       </section>
 
-
+      {/* Latest Added Books */}
       <section className="my-10 px-6 py-10 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-center mb-6 text-primary">
           Latest Added Books
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {books.length > 0 ? (
             books
-              .slice(-6)
+              .slice(-8)
               .reverse()
               .map((book) => (
                 <div
                   key={book._id}
-                  className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-lg transition-transform hover:scale-105"
+                  className="bg-white dark:bg-gray-900 p-2 rounded-lg shadow-lg transition-transform hover:scale-105"
                 >
                   <img
                     src={book.coverImage}
@@ -94,15 +105,17 @@ const Home = () => {
                   <p className="text-gray-600 dark:text-gray-400">
                     by {book.author}
                   </p>
-                  <p className="text-yellow-500 font-semibold mt-2">
-                    ⭐ {book.rating}
-                  </p>
-                  <Link
-                    to={`/book/${book._id}`}
-                    className="btn btn-sm btn-primary mt-3 w-full"
-                  >
-                    View Details
-                  </Link>
+                  <div className="flex justify-between items-center mt-2">
+                    <p className="text-yellow-500 font-semibold">
+                      ⭐ {book.rating}
+                    </p>
+                    <button
+                      onClick={() => handleViewDetails(book._id)}
+                      className="btn btn-sm btn-primary"
+                    >
+                      View Details
+                    </button>
+                  </div>
                 </div>
               ))
           ) : (
@@ -111,7 +124,7 @@ const Home = () => {
         </div>
       </section>
 
-
+      {/* Book of the Week */}
       <section className="my-10 px-6 bg-gray-200 dark:bg-gray-800 py-10 rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-center mb-6 text-primary">
           Book of the Week
@@ -141,7 +154,7 @@ const Home = () => {
 
 
 
-
+      {/* About Section */}
       <section className="my-10 px-6 py-10 bg-gray-200 dark:bg-gray-900 rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-center mb-6 text-primary">
           About The Book Haven

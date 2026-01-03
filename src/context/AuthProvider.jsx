@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import {
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
@@ -15,27 +16,36 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Register
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
+  // 🔥 Email & Password Login
+  const signInUser = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  // Google Login
   const signInWithGoogle = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
+  // Logout
   const signOutUser = () => {
     setLoading(true);
     return signOut(auth);
   };
 
+  // Observer
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
     });
-
     return () => unsubscribe();
   }, []);
 
@@ -43,9 +53,9 @@ const AuthProvider = ({ children }) => {
     user,
     loading,
     createUser,
-    signInWithGoogle,
+    signInUser,          // ✅ MUST
+    signInWithGoogle,    // ✅ MUST
     signOutUser,
-    auth, // 🔥 এটা রাখলে future এ কাজে লাগবে
   };
 
   return (

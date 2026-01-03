@@ -60,7 +60,7 @@ const AllBooks = () => {
     <h1 className="text-3xl md:text-4xl text-primary font-extrabold mb-6 text-center uppercase tracking-wider drop-shadow-md">
   All Books
 </h1>
-<p className="text-center text-gray-800 dark:text-gray-300 mb-4">
+<p className="text-center text-gray-700 dark:text-gray-300 mb-4">
   Browse our collection of amazing books. Find your next favorite read!
 </p>
 
@@ -109,17 +109,17 @@ const AllBooks = () => {
           No books found.
         </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {finalBooks.map((book) => (
             <div
               key={book._id}
-              className="text-black rounded-2xl shadow-md hover:shadow-2xl transition duration-300 p-4 flex flex-col bg-white dark:bg-gray-800 dark:text-white"
+              className="text-black rounded-2xl shadow-md hover:shadow-2xl transition duration-300 p-2 flex flex-col bg-white dark:bg-gray-800 dark:text-white"
             >
               <div className="overflow-hidden rounded-lg mb-4">
                 <img
                   src={book.coverImage}
                   alt={book.title}
-                  className="w-full h-[300px] object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-[200px] object-cover  hover:scale-105 transition-transform duration-300"
                 />
               </div>
               <h2 className="text-xl font-semibold mb-1">{book.title}</h2>
@@ -129,7 +129,8 @@ const AllBooks = () => {
               <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
                 Genre: {book.genre || "N/A"}
               </p>
-              <p className="text-sm font-semibold mb-2">
+              <div className="flex justify-between items-center">
+                 <p className="text-sm font-semibold mb-2">
                 ⭐ Rating: {book.rating || "0"}
               </p>
               <Link
@@ -138,6 +139,8 @@ const AllBooks = () => {
               >
                 View Details
               </Link>
+              </div>
+              
             </div>
           ))}
         </div>

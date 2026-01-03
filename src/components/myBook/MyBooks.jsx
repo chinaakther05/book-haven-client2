@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import { Toaster, toast } from "react-hot-toast";
 
+
 const MyBooks = () => {
   const { user } = useContext(AuthContext);
   const [books, setBooks] = useState([]);
@@ -96,6 +97,9 @@ const MyBooks = () => {
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100">
         My Books
       </h1>
+      <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
+  Here you can find all the books you have added to your collection.
+</p>
 
       {books.length === 0 ? (
         <p className="text-center text-gray-600 dark:text-gray-300">
@@ -129,12 +133,15 @@ const MyBooks = () => {
                       className="btn btn-sm btn-error mr-2"
                     >
                       Delete
+                      
+                      
                     </button>
                     <button
                       onClick={() => handleEdit(book)}
                       className="btn btn-sm btn-primary"
                     >
-                      Update
+                       Update
+                      
                     </button>
                   </td>
                 </tr>

@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
-import toast from 'react-hot-toast';
+import Swal from 'sweetalert2'; // <- SweetAlert2 import
 
 const AddBook = () => {
-  const { user } = useContext(AuthContext); // Logged-in user info
+  const { user } = useContext(AuthContext);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [genre, setGenre] = useState('');
@@ -30,7 +30,17 @@ const AddBook = () => {
 
     try {
       await axios.post('https://book-haven-server-seven.vercel.app/books', newBook);
-      toast.success("Book added successfully!");
+      
+      // SweetAlert2 success alert
+      Swal.fire({
+        icon: 'success',
+        title: 'Book Added!',
+        text: 'Your book has been added successfully.',
+        timer: 2000,
+        showConfirmButton: false
+      });
+
+      // Reset form
       setTitle('');
       setAuthor('');
       setGenre('');
@@ -40,7 +50,12 @@ const AddBook = () => {
 
     } catch (err) {
       console.log(err);
-      toast.error("Failed to add book.");
+      // SweetAlert2 error alert
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed',
+        text: 'Unable to add book. Please try again.',
+      });
     }
     setLoading(false);
   };
@@ -61,7 +76,6 @@ const AddBook = () => {
             required
             className="input text-black input-bordered"
           />
-
           <input
             type="text"
             placeholder="Author"

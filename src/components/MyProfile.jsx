@@ -1,15 +1,33 @@
-import React, { useContext, useState } from "react";
-
+import React, { useContext, useState, useEffect } from "react";
 import { updateProfile } from "firebase/auth";
 import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthContext";
 
 const MyProfile = () => {
   const { user, auth } = useContext(AuthContext);
-  const [editing, setEditing] = useState(false);
 
-  const [name, setName] = useState(user?.displayName || "");
-  const [photo, setPhoto] = useState(user?.photoURL || "");
+  const [editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const [name, setName] = useState("");
+  const [photo, setPhoto] = useState("");
+
+  // when user data loads
+  useEffect(() => {
+    if (user) {
+      setName(user.displayName || "");
+      setPhoto(user.photoURL || "");
+    }
+    setLoading(false);
+  }, [user]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <p className="text-xl font-semibold">Loading profile...</p>
+      </div>
+    );
+  }
 
   if (!user) {
     return (
