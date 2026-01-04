@@ -12,7 +12,7 @@ const MyProfile = () => {
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
 
-  // when user data loads
+  
   useEffect(() => {
     if (user) {
       setName(user.displayName || "");

@@ -1,39 +1,71 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const Support = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000); 
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <p className="text-xl font-semibold text-primary animate-pulse">
+          Loading support...
+        </p>
+      </div>
+    );
+
   return (
-    <div className="p-8 max-w-3xl mx-auto bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
-      <h1 className="text-4xl font-bold mb-6 text-center">Help / Support</h1>
+    <div className="p-8 max-w-4xl mx-auto min-h-screen bg-gray-100 dark:bg-gray-900">
+      <h1 className="text-4xl font-bold mb-10 text-center text-primary dark:text-gray-100">
+        Help & Support
+      </h1>
 
-      <p className="mb-4">
-        Welcome to The Book Haven Help Center! Here we are ready to assist you with any issues or questions you might have.
-      </p>
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+        <h2 className="text-2xl text-black font-semibold mb-4">
+          How to Use the Site
+        </h2>
+        <ul className="list-disc ml-6 space-y-2 text-gray-800 dark:text-gray-200">
+          <li>Browse books on the "All Books" page.</li>
+          <li>Add your favorite books using the "Add Book" page.</li>
+          <li>View and edit your books in "My Books".</li>
+          <li>Check your profile and update information in "My Profile".</li>
+        </ul>
+      </div>
 
-      <h2 className="text-2xl font-semibold mb-2">How to Use the Site:</h2>
-      <ul className="list-disc ml-6 mb-4">
-        <li>Browse books on the "All Books" page.</li>
-        <li>Add your favorite books using the "Add Book" page.</li>
-        <li>View and edit your books in "My Books".</li>
-        <li>Check your profile and update information in "My Profile".</li>
-      </ul>
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+        <h2 className="text-2xl text-black font-semibold mb-4">
+          Contact Support
+        </h2>
+        <p className="mb-4 text-gray-800 dark:text-gray-200">
+          Facing any problem? Reach out to us, and we'll respond as soon as possible.
+        </p>
+        <a
+          href="mailto:support@bookhaven.com"
+          className="inline-block px-6 py-3 bg-primary text-white font-semibold rounded-lg shadow hover:bg-blue-600 transition-colors"
+        >
+          Email Support
+        </a>
+      </div>
 
-      <h2 className="text-2xl font-semibold mb-2">Contact Support:</h2>
-      <p className="mb-4">
-  If you face any problem, you can reach out through email at{" "}
-  <a
-    href="mailto:support@bookhaven.com"
-    className="text-blue-500 hover:underline"
-  >
-    support@bookhaven.com
-  </a>
-  . We will respond as soon as possible.
-</p>
-
-      <h2 className="text-2xl font-semibold mt-4 mb-2">FAQs:</h2>
-      <ul className="list-disc ml-6">
-        <li>How to reset password? → Currently via your account settings.</li>
-        <li>How to delete a book? → Go to "My Books" and click Delete.</li>
-      </ul>
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+        <h2 className="text-2xl text-black font-semibold mb-4">FAQs</h2>
+        <ul className="list-disc ml-6 space-y-2 text-gray-800 dark:text-gray-200">
+          <li>
+            <strong>How to reset password?</strong> → Currently via your account
+            settings.
+          </li>
+          <li>
+            <strong>How to delete a book?</strong> → Go to "My Books" and click
+            Delete.
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

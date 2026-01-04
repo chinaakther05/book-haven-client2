@@ -78,7 +78,10 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         children: [
-          { index: true, element: <p>Welcome to your Dashboard!</p> },
+          { index: true, element: <p className="text-2xl">
+  Here you can manage all your books and profile.
+</p>
+ },
            {
             path: '/dashboard/my-profile',
             element: <MyProfile></MyProfile>

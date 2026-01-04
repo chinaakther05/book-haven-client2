@@ -30,82 +30,92 @@ const Navbar = ({ isDark, setIsDark }) => {
       </div>
 
       {/* Desktop Menu */}
-      <ul className="hidden lg:flex gap-2 items-center">
-        <li className="text-white flex items-center gap-1 group">
-          <FaHome className="w-5 h-5 group-hover:text-red-500" />
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              linkClass +
-              (isActive ? " font-bold text-red-500 underline" : "") +
-              " group-hover:text-red-500"
-            }
-          >
-            Home
-          </NavLink>
-        </li>
+     <ul className="hidden lg:flex gap-4 items-center">
+  {/* Home */}
+  <li className="text-white group">
+    <NavLink
+      to="/"
+      className={({ isActive }) =>
+        "flex items-center gap-1 " +
+        linkClass +
+        (isActive ? " font-bold text-sky-400 underline" : "") +
+        " group-hover:text-red-500"
+      }
+    >
+      <FaHome className="w-5 h-5" />
+      Home
+    </NavLink>
+  </li>
 
-        <li className="text-white flex items-center gap-1 group">
-          <FaBook className="w-5 h-5 group-hover:text-red-500" />
-          <NavLink
-            to="/allBooks"
-            className={({ isActive }) =>
-              linkClass +
-              (isActive ? " font-bold text-red-500 underline" : "") +
-              " group-hover:text-red-500"
-            }
-          >
-            All Books
-          </NavLink>
-        </li>
+  {/* All Books */}
+  <li className="text-white group">
+    <NavLink
+      to="/allBooks"
+      className={({ isActive }) =>
+        "flex items-center gap-1 " +
+        linkClass +
+        (isActive ? " font-bold text-sky-400 underline" : "") +
+        " group-hover:text-red-500"
+      }
+    >
+      <FaBook className="w-5 h-5" />
+      All Books
+    </NavLink>
+  </li>
 
-       
-        <li className="text-white flex items-center gap-1  group">
-          <FaInfoCircle className="w-5 h-5 group-hover:text-red-500" />
-          <NavLink
-            to="help"
-            className={({ isActive }) =>
-              linkClass +
-              (isActive ? " font-bold text-red-500 underline" : "") +
-              " group-hover:text-red-500"
-            }
-          >
-            Support
-          </NavLink>
-        </li>
+  {/* Support */}
+  <li className="text-white group">
+    <NavLink
+      to="/help"
+      className={({ isActive }) =>
+        "flex items-center gap-1 " +
+        linkClass +
+        (isActive ? " font-bold text-sky-400 underline" : "") +
+        " group-hover:text-red-500"
+      }
+    >
+      <FaInfoCircle className="w-5 h-5" />
+      Support
+    </NavLink>
+  </li>
 
-        {user && (
-          <>
-            <li className="text-white flex items-center gap-1 group">
-              <FaPlusCircle className="w-5 h-5 group-hover:text-red-500" />
-              <NavLink
-                to="/addBooks"
-                className={({ isActive }) =>
-                  linkClass +
-                  (isActive ? " font-bold text-red-500 underline" : "") +
-                  " group-hover:text-red-500"
-                }
-              >
-                Add Book
-              </NavLink>
-            </li>
+  {user && (
+    <>
+      {/* Add Book */}
+      <li className="text-white group">
+        <NavLink
+          to="/addBooks"
+          className={({ isActive }) =>
+            "flex items-center gap-1 " +
+            linkClass +
+            (isActive ? " font-bold text-sky-400 underline" : "") +
+            " group-hover:text-red-500"
+          }
+        >
+          <FaPlusCircle className="w-5 h-5" />
+          Add Book
+        </NavLink>
+      </li>
 
-            <li className="text-white flex items-center gap-1 group">
-              <FaUser className="w-5 h-5 group-hover:text-red-500" />
-              <NavLink
-                to="/dashboard"
-                className={({ isActive }) =>
-                  linkClass +
-                  (isActive ? " font-bold text-red-500 underline" : "") +
-                  " group-hover:text-red-500"
-                }
-              >
-                Dashboard
-              </NavLink>
-            </li>
-          </>
-        )}
-      </ul>
+      {/* Dashboard */}
+      <li className="text-white group">
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            "flex items-center gap-1 " +
+            linkClass +
+            (isActive ? " font-bold text-sky-400 underline" : "") +
+            " group-hover:text-red-500"
+          }
+        >
+          <FaUser className="w-5 h-5" />
+          Dashboard
+        </NavLink>
+      </li>
+    </>
+  )}
+</ul>
+
 
       {/* Right Side */}
       <div className="flex items-center gap-2">
@@ -140,13 +150,13 @@ const Navbar = ({ isDark, setIsDark }) => {
             </button>
           </>
         ) : (
-          // ✅ FIXED: login now goes to /login
+          
           <Link to="/login" className="btn text-white btn-sm btn-primary">
             Login
           </Link>
         )}
 
-        <button
+         <button
           onClick={() => setDropdownOpen(!dropdownOpen)}
           className="lg:hidden btn btn-ghost"
         >

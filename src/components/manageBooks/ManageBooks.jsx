@@ -6,7 +6,7 @@ const ManageBooks = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 🔹 Load all books (admin)
+  
   useEffect(() => {
     const fetchBooks = async () => {
       try {
@@ -24,7 +24,7 @@ const ManageBooks = () => {
     fetchBooks();
   }, []);
 
-  // 🔹 Approve book
+  
   const handleApprove = async (id) => {
     try {
       await axios.patch(
@@ -44,7 +44,7 @@ const ManageBooks = () => {
     }
   };
 
-  // 🔹 Delete book
+ 
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -69,7 +69,7 @@ const ManageBooks = () => {
     });
   };
 
-  // 🔹 Loading UI
+  
   if (loading) {
     return (
       <div className="flex justify-center items-center h-[60vh]">

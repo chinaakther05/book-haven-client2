@@ -110,10 +110,10 @@ const DashboardLayout = () => {
 
       {/* Main Content */}
       <div className="flex-1   flex flex-col">
-        {/* Topbar */}
+       
        {/* Topbar */}
 <header className="flex justify-between items-center p-4 bg-primary dark:bg-gray-800 shadow">
-  {/* Sidebar toggle button */}
+
   <button
     onClick={() => setSidebarOpen(!sidebarOpen)}
     className="btn btn-sm lg:hidden"
@@ -121,7 +121,7 @@ const DashboardLayout = () => {
     ☰
   </button>
 
-  {/* Right side: username + logout */}
+  
   <div className="ml-auto flex items-center gap-4">
     <p className="text-white dark:text-gray-100 font-medium">
       {user?.displayName || "User"}
@@ -136,9 +136,8 @@ const DashboardLayout = () => {
 </header>
 
 
-        {/* Nested Routes */}
        <main className="p-4 flex-1 text-center overflow-auto">
-  {/* Top Welcome Section */}
+  
   <div className="mb-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
     <h1 className="text-3xl font-bold text-center text-primary">
        Welcome to Dashboard
@@ -153,7 +152,7 @@ const DashboardLayout = () => {
       })}
     </p>
   </div>
-  {/* Nested Pages */}
+ 
   <Outlet />
 </main>
 

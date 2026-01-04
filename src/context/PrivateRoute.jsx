@@ -6,7 +6,7 @@ const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const location = useLocation();
 
-  // 🔄 loading state
+  
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -15,10 +15,10 @@ const PrivateRoute = ({ children }) => {
     );
   }
 
-  // ✅ user logged in → show children
+  
   if (user) return children;
 
-  // ❌ user not logged in → redirect
+  
   return <Navigate to="/login" state={{ from: location }} replace />;
 };
 

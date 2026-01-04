@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext,  } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
-import Swal from 'sweetalert2'; // <- SweetAlert2 import
+import Swal from 'sweetalert2'; 
 
 const AddBook = () => {
   const { user } = useContext(AuthContext);
@@ -59,6 +59,17 @@ const AddBook = () => {
     }
     setLoading(false);
   };
+
+  
+ {loading && (
+  <div className="flex justify-center items-center my-4">
+    <p className="text-primary font-semibold animate-pulse">
+      Adding book...
+    </p>
+  </div>
+)}
+
+
 
   return (
     <div className="max-w-md mx-auto my-10 p-4 border rounded shadow">
